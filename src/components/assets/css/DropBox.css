@@ -8,3 +8,13 @@ position: relative;
 left: 711px;
 top: 40px;
 } */
+
+.rpv-core__text-layer-text{
+    display: none;
+}
+
+.rpv-core__canvas-layer > canvas{
+    border-radius: 5px;
+    margin-left: 8px;
+    margin-top: 5px;
+}

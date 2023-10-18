@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import "../assets/css/DropBox.css";
 import drop from "../assets/images/dropIcon.svg";
 import Dropzone from "react-dropzone";
+import { Worker ,Viewer, SpecialZoomLevel } from "@react-pdf-viewer/core";
 
 const DropBox = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-
+  console.log(selectedFile);
   const handleFileUpload = (acceptedFiles) => {
     console.log("Uploaded files:", acceptedFiles);
     // Assuming you want to save the selected file
@@ -43,7 +44,10 @@ const DropBox = () => {
         )}
       </Dropzone>
       <div className="flex justify-between mt-[-43px] ml-[157px] mr-[184px] relative">
-        <label htmlFor="browse" className="text-[#0F8CFF] text-base font-poppins cursor-pointer">
+        <label
+          htmlFor="browse"
+          className="text-[#0F8CFF] text-base font-poppins cursor-pointer"
+        >
           Browse my Computer
         </label>
         <input
@@ -51,6 +55,7 @@ const DropBox = () => {
           className="hidden"
           id="browse"
           onChange={handleFileInputChange}
+          accept=".pdf"
         />
         <p className="text-[#0F8CFF] text-base font-poppins cursor-pointer">
           From URL
@@ -59,14 +64,21 @@ const DropBox = () => {
 
       {selectedFile && (
         <div className="w-[82%] h-[220px] bg-white rounded-[22px] ml-[130px] mt-[50px] px-[11px] py-[10px]">
-          <p className="text-[#282828] text-[23px] font-poppins font-medium">My Chat</p>
-          <iframe title="preview"
-            src={URL.createObjectURL(selectedFile)}
-            width="20%"
-            height="50%"
-            frameBorder="0"
-            />
-            <p className="text-[#0F8CFF] text-[14px] font-poppins">{selectedFile.name}</p>
+          <p className="text-[#282828] text-[23px] font-poppins font-medium">
+            My Chat
+          </p>
+          <div className="w-[180px] h-[176px] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow">
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js" >
+          <Viewer
+            fileUrl={URL.createObjectURL(selectedFile)}
+            defaultScale={SpecialZoomLevel.PageFit}
+          />
+          </Worker>
+          <p className="text-[#0F8CFF] text-[14px] font-poppins">
+            {selectedFile.name}
+          </p>
+          <p className="text-[#3B3B3B] text-[12px] font-poppins">Updated Chat with pdf</p>
+          </div>
         </div>
       )}
     </div>
@@ -74,3 +86,5 @@ const DropBox = () => {
 };
 
 export default DropBox;
+
+// URL.createObjectURL(selectedFile)
