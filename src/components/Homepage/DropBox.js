@@ -66,7 +66,7 @@ const DropBox = () => {
             height="50%"
             frameBorder="0"
             />
-            <p>{selectedFile.name}</p>
+            <p className="text-[#0F8CFF] text-[14px] font-poppins">{selectedFile.name}</p>
         </div>
       )}
     </div>
