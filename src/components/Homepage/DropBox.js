@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import "../assets/css/DropBox.css";
 import drop from "../assets/images/dropIcon.svg";
 import Dropzone from "react-dropzone";
-import { Worker ,Viewer, SpecialZoomLevel } from "@react-pdf-viewer/core";
+import { Document, Page, pdfjs } from 'react-pdf';
+import { useNavigate } from "react-router-dom";
 
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 const DropBox = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  console.log(selectedFile);
+  const navigate = useNavigate();
+
   const handleFileUpload = (acceptedFiles) => {
-    console.log("Uploaded files:", acceptedFiles);
-    // Assuming you want to save the selected file
+    // You should handle PDF uploads here
     if (acceptedFiles && acceptedFiles.length > 0) {
       setSelectedFile(acceptedFiles[0]);
     }
@@ -17,8 +19,6 @@ const DropBox = () => {
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
-    console.log("Selected file from Browse:", file);
-    // Assuming you want to save the selected file
     setSelectedFile(file);
   };
 
@@ -67,17 +67,21 @@ const DropBox = () => {
           <p className="text-[#282828] text-[23px] font-poppins font-medium">
             My Chat
           </p>
-          <div className="w-[180px] h-[176px] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow">
-          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js" >
-          <Viewer
-            fileUrl={URL.createObjectURL(selectedFile)}
-            defaultScale={SpecialZoomLevel.PageFit}
-          />
-          </Worker>
-          <p className="text-[#0F8CFF] text-[14px] font-poppins">
-            {selectedFile.name}
-          </p>
-          <p className="text-[#3B3B3B] text-[12px] font-poppins">Updated Chat with pdf</p>
+          <div
+            className="w-[180px] h-[176px] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow"
+            onClick={() => {
+              navigate("/chat");
+            }}
+          >
+           <Document file={URL.createObjectURL(selectedFile)}>
+            <Page pageNumber={1} />
+          </Document>
+            <p className="text-[#0F8CFF] text-[14px] font-poppins">
+              {selectedFile.name}
+            </p>
+            <p className="text-[#3B3B3B] text-[12px] font-poppins">
+              Updated Chat with PDF
+            </p>
           </div>
         </div>
       )}
@@ -86,5 +90,3 @@ const DropBox = () => {
 };
 
 export default DropBox;
-
-// URL.createObjectURL(selectedFile)
