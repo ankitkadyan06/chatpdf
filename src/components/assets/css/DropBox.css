@@ -3,18 +3,14 @@ fill: #FFF;
 filter: drop-shadow(0px 0px 45px rgba(20, 91, 115, 0.25));
 }
 
-/* .pointer{
-position: relative;
-left: 711px;
-top: 40px;
-} */
-
-.rpv-core__text-layer-text{
+.react-pdf__Page__textContent{
     display: none;
 }
 
-.rpv-core__canvas-layer > canvas{
-    border-radius: 5px;
-    margin-left: 8px;
-    margin-top: 5px;
+
+
+canvas{
+    margin-left: 30px;
+height: 150px !important;
+width: 120px !important; 
 }

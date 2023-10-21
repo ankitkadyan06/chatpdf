@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../assets/css/DropBox.css";
 import drop from "../assets/images/dropIcon.svg";
 import Dropzone from "react-dropzone";
-import { Document, Page, pdfjs } from 'react-pdf';
+import { Document, Page, pdfjs } from "react-pdf";
 import { useNavigate } from "react-router-dom";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -63,25 +63,36 @@ const DropBox = () => {
       </div>
 
       {selectedFile && (
-        <div className="w-[82%] h-[220px] bg-white rounded-[22px] ml-[130px] mt-[50px] px-[11px] py-[10px]">
+        <div className="w-[82%] h-[300px] bg-white rounded-[22px] ml-[130px] mt-[50px] px-[11px] py-[10px]">
           <p className="text-[#282828] text-[23px] font-poppins font-medium">
             My Chat
           </p>
           <div
-            className="w-[180px] h-[176px] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow"
+            className="w-[180px] h-[230px] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow cursor-pointer"
             onClick={() => {
               navigate("/chat");
             }}
           >
-           <Document file={URL.createObjectURL(selectedFile)}>
-            <Page pageNumber={1} />
-          </Document>
-            <p className="text-[#0F8CFF] text-[14px] font-poppins">
-              {selectedFile.name}
-            </p>
-            <p className="text-[#3B3B3B] text-[12px] font-poppins">
-              Updated Chat with PDF
-            </p>
+            <div>
+              <Document file={URL.createObjectURL(selectedFile)}>
+                <Page pageNumber={1} />
+              </Document>
+            </div>
+            <div className="relative z-[1] bg-white ml-[10px] pt-[10px]">
+              <p
+                className="text-[#0F8CFF] text-[14px] font-poppins mt-[10px]"
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {selectedFile.name}
+              </p>
+              <p className="text-[#3B3B3B] text-[12px] font-poppins">
+                Updated Chat with PDF
+              </p>
+            </div>
           </div>
         </div>
       )}

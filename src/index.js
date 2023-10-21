@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-pdf/dist/esm/Page/AnnotationLayer.css'; 
+import 'react-pdf/dist/esm/Page/TextLayer.css'; 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
