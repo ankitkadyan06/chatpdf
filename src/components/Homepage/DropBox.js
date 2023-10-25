@@ -7,14 +7,15 @@ import { useNavigate } from "react-router-dom";
 import newFolder from "../assets/images/newFolder.svg";
 import deleteIcon from "../assets/images/delete.svg";
 import threeDot from "../assets/images/threeDot.svg";
-import chatIcon from '../assets/images/chatIcon.svg';
-import deletePdf from '../assets/images/deletePdf.svg';
-import rename from '../assets/images/rename.svg';
-import moveTo from '../assets/images/moveTo.svg'
-
+import chatIcon from "../assets/images/chatIcon.svg";
+import deletePdf from "../assets/images/deletePdf.svg";
+import rename from "../assets/images/rename.svg";
+import moveTo from "../assets/images/moveTo.svg";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 const DropBox = () => {
+
+  
   const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate();
 
@@ -23,7 +24,6 @@ const DropBox = () => {
       setSelectedFile(acceptedFiles[0]);
     }
 
-    // Save the selected file
     setSelectedFile(acceptedFiles[0]);
   };
 
@@ -134,21 +134,34 @@ const DropBox = () => {
                 <div className="dropdown relative left-[340%]">
                   <img src={threeDot} alt="" className="dropbtn" />
                   <div className="dropdown-content bg-white w-[121px] rounded-[5px] pl-[10px] shadow-md">
-                    <div className="flex cursor-pointer" onClick={()=>{navigate("/chat")}}>
+                    <div
+                      className="flex cursor-pointer"
+                      onClick={() => {
+                        navigate("/chat");
+                      }}
+                    >
                       <img src={chatIcon} alt="" className="w-[16px]" />
-                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">Chat</p>
+                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
+                        Chat
+                      </p>
                     </div>
-                    <div className="flex cursor-pointer" >
+                    <div className="flex cursor-pointer">
                       <img src={deletePdf} alt="" className="w-[16px]" />
-                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">Delete</p>
+                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
+                        Delete
+                      </p>
                     </div>
-                    <div className="flex cursor-pointer" >
-                      <img src={rename} alt="" className="w-[16px]"/>
-                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">Rename</p>
+                    <div className="flex cursor-pointer">
+                      <img src={rename} alt="" className="w-[16px]" />
+                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
+                        Rename
+                      </p>
                     </div>
-                    <div className="flex cursor-pointer" >
+                    <div className="flex cursor-pointer">
                       <img src={moveTo} alt="" className="w-[16px]" />
-                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">Move To</p>
+                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
+                        Move To
+                      </p>
                     </div>
                   </div>
                 </div>
