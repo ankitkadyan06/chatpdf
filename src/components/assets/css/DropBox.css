@@ -20,7 +20,9 @@ width: 178px !important;
     height: 100px;
 }
 
-
+.react-pdf__Page__annotations{
+    display: none;
+}
 
   
   .dropdown {
