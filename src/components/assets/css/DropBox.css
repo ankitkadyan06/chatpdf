@@ -15,3 +15,27 @@ height: 150px !important;
 width: 178px !important; 
 }
 
+.react-pdf__Document > .react-pdf__Page{
+    width: 100px;
+    height: 100px;
+}
+
+
+
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+  }
+  
+
+  
+  /* .dropdown-content div:hover {background-color: #ddd;} */
+  
+  .dropdown:hover .dropdown-content {display: block;}

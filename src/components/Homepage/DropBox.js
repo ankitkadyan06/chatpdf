@@ -4,13 +4,19 @@ import drop from "../assets/images/dropIcon.svg";
 import Dropzone from "react-dropzone";
 import { Document, Page, pdfjs } from "react-pdf";
 import { useNavigate } from "react-router-dom";
+import newFolder from "../assets/images/newFolder.svg";
+import deleteIcon from "../assets/images/delete.svg";
+import threeDot from "../assets/images/threeDot.svg";
+import chatIcon from '../assets/images/chatIcon.svg';
+import deletePdf from '../assets/images/deletePdf.svg';
+import rename from '../assets/images/rename.svg';
+import moveTo from '../assets/images/moveTo.svg'
+
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 const DropBox = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate();
-
-  
 
   const handleFileUpload = (acceptedFiles) => {
     if (acceptedFiles && acceptedFiles.length > 0) {
@@ -67,21 +73,96 @@ const DropBox = () => {
       </div>
 
       {selectedFile && (
-        <div className="w-[82%] h-[300px] bg-white rounded-[22px] ml-[130px] mt-[50px] px-[11px] py-[10px]">
-          <p className="text-[#282828] text-[23px] font-poppins font-medium">
-            My Chat
-          </p>
-          <div
-            className="w-[180px] h-[230px] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow cursor-pointer"
-          >
+        <div className="w-[82%] h-[250px] mb-[20px] bg-white rounded-[22px] ml-[130px] mt-[50px] px-[11px] py-[10px]">
+          <div className="flex justify-between">
+            <div className="text-[#282828] text-[23px] font-poppins font-medium">
+              My Chat
+            </div>
+            <div className="flex mr-[16px]">
+              <div className="flex mr-[18px]">
+                <button className="flex">
+                  <img
+                    src={newFolder}
+                    alt=""
+                    className="w-[20px] h-[16px] relative top-[3px]"
+                  />
+                  <p className="text-[#555555] text-base font-poppins ml-[10px]">
+                    New Folder
+                  </p>
+                </button>
+              </div>
+              <div className="flex mr-[18px]">
+                <button className="flex">
+                  <img
+                    src={deleteIcon}
+                    alt=""
+                    className="w-[13px] h-[16px] relative top-[3px]"
+                  />
+                  <p className="text-[#555555] text-base font-poppins ml-[10px]">
+                    Delete
+                  </p>
+                </button>
+              </div>
+              <div className="flex">
+                <button className="flex">
+                  <input
+                    type="checkbox"
+                    name=""
+                    id="select"
+                    className="w-[16px] h-[16px] relative top-[3px]"
+                  />
+                  <label
+                    className="text-[#555555] text-base font-poppins ml-[10px] cursor-pointer"
+                    htmlFor="select"
+                  >
+                    Select all
+                  </label>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-[180px] h-[182px] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow">
             <div>
+              <div className="flex absolute z-[2] ml-[5px] mt-[5px]">
+                <input
+                  type="checkbox"
+                  name=""
+                  id=""
+                  className="w-[19px] h-[19px] cursor-pointer"
+                />
+                <div className="dropdown relative left-[340%]">
+                  <img src={threeDot} alt="" className="dropbtn" />
+                  <div className="dropdown-content bg-white w-[121px] rounded-[5px] pl-[10px] shadow-md">
+                    <div className="flex cursor-pointer" onClick={()=>{navigate("/chat")}}>
+                      <img src={chatIcon} alt="" className="w-[16px]" />
+                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">Chat</p>
+                    </div>
+                    <div className="flex cursor-pointer" >
+                      <img src={deletePdf} alt="" className="w-[16px]" />
+                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">Delete</p>
+                    </div>
+                    <div className="flex cursor-pointer" >
+                      <img src={rename} alt="" className="w-[16px]"/>
+                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">Rename</p>
+                    </div>
+                    <div className="flex cursor-pointer" >
+                      <img src={moveTo} alt="" className="w-[16px]" />
+                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">Move To</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <Document file={URL.createObjectURL(selectedFile)}>
                 <Page pageNumber={1} />
               </Document>
             </div>
-            <div className="relative h-[80px] z-[1] bg-[#F2F2F2] pl-[10px] pt-[10px]"  onClick={() => {
-              navigate("/chat");
-            }}>
+            <div
+              className="relative h-[80px] z-[1] bg-[#F2F2F2] pl-[10px] pt-[10px] cursor-pointer"
+              onClick={() => {
+                navigate("/chat");
+              }}
+            >
               <p
                 className="text-[#0F8CFF] text-[14px] font-poppins mt-[10px]"
                 style={{

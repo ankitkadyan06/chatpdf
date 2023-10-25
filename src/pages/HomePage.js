@@ -6,7 +6,7 @@ const HomePage = () => {
   return (
     <div>
       <HeadingContent/>
-      <DropBox/>
+      <DropBox />
     </div>
   )
 }
