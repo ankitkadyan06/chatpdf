@@ -16,6 +16,9 @@ const DropBox = () => {
     if (acceptedFiles && acceptedFiles.length > 0) {
       setSelectedFile(acceptedFiles[0]);
     }
+
+    // Save the selected file
+    setSelectedFile(acceptedFiles[0]);
   };
 
   const handleFileInputChange = (event) => {
