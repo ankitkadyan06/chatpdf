@@ -14,8 +14,6 @@ import moveTo from "../assets/images/moveTo.svg";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 const DropBox = () => {
-
-  
   const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate();
 
