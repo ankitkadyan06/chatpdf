@@ -10,8 +10,9 @@ const DropBox = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate();
 
+  
+
   const handleFileUpload = (acceptedFiles) => {
-    // You should handle PDF uploads here
     if (acceptedFiles && acceptedFiles.length > 0) {
       setSelectedFile(acceptedFiles[0]);
     }
@@ -69,16 +70,15 @@ const DropBox = () => {
           </p>
           <div
             className="w-[180px] h-[230px] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow cursor-pointer"
-            onClick={() => {
-              navigate("/chat");
-            }}
           >
             <div>
               <Document file={URL.createObjectURL(selectedFile)}>
                 <Page pageNumber={1} />
               </Document>
             </div>
-            <div className="relative z-[1] bg-white ml-[10px] pt-[10px]">
+            <div className="relative h-[80px] z-[1] bg-[#F2F2F2] pl-[10px] pt-[10px]"  onClick={() => {
+              navigate("/chat");
+            }}>
               <p
                 className="text-[#0F8CFF] text-[14px] font-poppins mt-[10px]"
                 style={{

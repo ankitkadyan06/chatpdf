@@ -5,14 +5,14 @@ import ChatBot from '../components/ChatPage/ChatBot'
 
 const ChatPage = () => {
   return (
-    <div className='flex'>
-      <div className='w-[20%]'>
+    <div className='flex md:flex-row flex-col w-full'>
+      <div className='w-full md:w-[15%]'>
       <SideBar/>
       </div>
-      <div className='w-[40%]'>
-      <Preview/>
+      <div className='w-full md:w-[43%]'>
+      <Preview />
       </div>
-      <div className='w-[40%]'>
+      <div className='w-full md:w-[42%]'>
       <ChatBot/>
       </div>
     </div>
