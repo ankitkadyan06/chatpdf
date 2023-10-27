@@ -31,9 +31,9 @@ const DropBox = () => {
     setSelectedFile(file);
   };
 
-  const name = selectedFile ? selectedFile.name : "";
+  const name = selectedFile ? selectedFile: "";
   const goToChat = () => {
-    navigate("/chat" , {state : {name: name}})
+    navigate("/chat" , {state : {file: name}})
   }
 
   return (
