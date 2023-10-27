@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
-import Dropzone from 'react-dropzone';
-import dfos from '../assets/images/dfosLogo.svg';
-import { useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import '../assets/css/Sidebar.css';
-import textImg from '../assets/images/textImg.svg'
-import { useNavigate, useLocation } from 'react-router-dom';
-import documentImg from '../assets/images/documentIcon.svg';
+import React, { useState, useEffect } from "react";
+import Dropzone from "react-dropzone";
+import dfos from "../assets/images/dfosLogo.svg";
+import { useTheme } from "@mui/material/styles";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import "../assets/css/Sidebar.css";
+import textImg from "../assets/images/textImg.svg";
+import { useNavigate, useLocation } from "react-router-dom";
+import documentImg from "../assets/images/documentIcon.svg";
+
+
+const dataShow = [];
 
 
 const ITEM_HEIGHT = 48;
@@ -23,7 +26,7 @@ const MenuProps = {
   },
 };
 
-const names = ['javascript', 'Van Henry', 'April Tucker'];
+const names = ["javascript", "Van Henry", "April Tucker"];
 
 function getStyles(name, personName, theme) {
   return {
@@ -37,17 +40,16 @@ function getStyles(name, personName, theme) {
 const SideBar = () => {
   const theme = useTheme();
   const [personName, setPersonName] = useState([]);
-  const [uploadedFileName, setUploadedFileName] = useState(''); 
+  const [uploadedFileName, setUploadedFileName] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.state);
+
+  let dropBoxFile = location.state;
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      typeof value === 'string' ? value.split(',') : value,
-    );
+    setPersonName(typeof value === "string" ? value.split(",") : value);
   };
 
   const handleDrop = (acceptedFiles) => {
@@ -57,9 +59,25 @@ const SideBar = () => {
     }
   };
 
+  
+
+  useEffect(() => {
+    if (dropBoxFile) {
+      dataShow.push(dropBoxFile);
+    }
+  }, [dropBoxFile]);
+  console.log(dataShow);
+
   return (
     <div className="bg-[#001529] h-[100vh]">
-      <img src={dfos} alt="" className="ml-[20%] pt-[18px] pb-[17px] cursor-pointer" onClick={()=>{navigate('/')}} />
+      <img
+        src={dfos}
+        alt=""
+        className="ml-[20%] pt-[18px] pb-[17px] cursor-pointer"
+        onClick={() => {
+          navigate("/");
+        }}
+      />
       <hr className="border-[1px] border-solid border-[#CACACA] w-[90%] ml-[5%]" />
       <FormControl sx={{ m: 1, width: 210, mt: 3 }} className="ml-[10px]">
         <Select
@@ -71,19 +89,22 @@ const SideBar = () => {
           input={<OutlinedInput />}
           renderValue={(selected) => {
             if (selected.length === 0) {
-              return <div className="font-poppins">
-                <div className='flex'>
-                  <img src={documentImg} alt="" />
-                  <p className='relative left-[12px] top-[8px]'>My Document</p>
+              return (
+                <div className="font-poppins">
+                  <div className="flex">
+                    <img src={documentImg} alt="" />
+                    <p className="relative left-[12px] top-[8px]">
+                      My Document
+                    </p>
+                  </div>
                 </div>
-              </div>;
+              );
             }
 
-            return selected.join(', ');
+            return selected.join(", ");
           }}
           MenuProps={MenuProps}
         >
-         
           {names.map((name) => (
             <MenuItem
               key={name}
@@ -95,6 +116,27 @@ const SideBar = () => {
           ))}
         </Select>
       </FormControl>
+      {dataShow.map((item, index) => {
+        console.log(item);
+        return (
+          <div
+            key={index}
+            className="text-white ml-[10px] mt-4 flex bg-[#1677FF] rounded-[7px] px-[13px] py-[5px] mx-[10px] cursor-pointer"
+          >
+            <img src={textImg} alt="" />
+            <p
+              className="ml-[7px] mt-[10px]"
+              style={{
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {item.file.name}
+            </p>
+          </div>
+        );
+      })}
       <Dropzone onDrop={handleDrop}>
         {({ getRootProps, getInputProps }) => (
           <div
@@ -109,16 +151,6 @@ const SideBar = () => {
           </div>
         )}
       </Dropzone>
-      {uploadedFileName && (
-        <div className="text-white ml-[10px] mt-4 flex bg-[#1677FF] rounded-[7px] px-[13px] py-[5px] mx-[10px] cursor-pointer">
-          <img src={textImg} alt="" />
-          <p className='ml-[7px] mt-[10px]' style={{
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                }}>{location.state.name}</p>
-        </div>
-      )}
     </div>
   );
 };
