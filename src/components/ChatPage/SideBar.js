@@ -8,8 +8,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import '../assets/css/Sidebar.css';
 import textImg from '../assets/images/textImg.svg'
-import { useNavigate } from 'react-router-dom';
-import documentImg from '../assets/images/documentIcon.svg'
+import { useNavigate, useLocation } from 'react-router-dom';
+import documentImg from '../assets/images/documentIcon.svg';
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -38,7 +39,8 @@ const SideBar = () => {
   const [personName, setPersonName] = useState([]);
   const [uploadedFileName, setUploadedFileName] = useState(''); 
   const navigate = useNavigate();
-
+  const location = useLocation();
+  console.log(location.state);
   const handleChange = (event) => {
     const {
       target: { value },
@@ -114,7 +116,7 @@ const SideBar = () => {
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   whiteSpace: "nowrap",
-                }}>{uploadedFileName}</p>
+                }}>{location.state.name}</p>
         </div>
       )}
     </div>

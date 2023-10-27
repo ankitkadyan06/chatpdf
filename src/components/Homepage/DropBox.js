@@ -13,22 +13,28 @@ import rename from "../assets/images/rename.svg";
 import moveTo from "../assets/images/moveTo.svg";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
 const DropBox = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  
   const navigate = useNavigate();
+
 
   const handleFileUpload = (acceptedFiles) => {
     if (acceptedFiles && acceptedFiles.length > 0) {
       setSelectedFile(acceptedFiles[0]);
     }
-
-    setSelectedFile(acceptedFiles[0]);
   };
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
   };
+
+  const name = selectedFile ? selectedFile.name : "";
+  const goToChat = () => {
+    navigate("/chat" , {state : {name: name}})
+  }
 
   return (
     <div>
@@ -84,11 +90,12 @@ const DropBox = () => {
                     alt=""
                     className="w-[20px] h-[16px] relative top-[3px]"
                   />
-                  <p className="text-[#555555] text-base font-poppins ml-[10px]">
+                  <p className="text-[#555555] hover:text-[#0F8CFF] text-base font-poppins ml-[10px]">
                     New Folder
                   </p>
                 </button>
               </div>
+
               <div className="flex mr-[18px]">
                 <button className="flex">
                   <img
@@ -96,7 +103,7 @@ const DropBox = () => {
                     alt=""
                     className="w-[13px] h-[16px] relative top-[3px]"
                   />
-                  <p className="text-[#555555] text-base font-poppins ml-[10px]">
+                  <p className="text-[#555555] hover:text-[#C42222] text-base font-poppins ml-[10px]">
                     Delete
                   </p>
                 </button>
@@ -120,7 +127,7 @@ const DropBox = () => {
             </div>
           </div>
 
-          <div className="w-[180px] h-[182px] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow">
+          <div className="w-[180px] h-[182px] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow"> 
             <div>
               <div className="flex absolute z-[2] ml-[5px] mt-[5px]">
                 <input
@@ -134,9 +141,7 @@ const DropBox = () => {
                   <div className="dropdown-content bg-white w-[121px] rounded-[5px] pl-[10px] shadow-md">
                     <div
                       className="flex cursor-pointer"
-                      onClick={() => {
-                        navigate("/chat");
-                      }}
+                      onClick={goToChat}
                     >
                       <img src={chatIcon} alt="" className="w-[16px]" />
                       <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
@@ -170,9 +175,7 @@ const DropBox = () => {
             </div>
             <div
               className="relative h-[80px] z-[1] bg-[#F2F2F2] pl-[10px] pt-[10px] cursor-pointer"
-              onClick={() => {
-                navigate("/chat");
-              }}
+              onClick={goToChat}
             >
               <p
                 className="text-[#0F8CFF] text-[14px] font-poppins mt-[10px]"

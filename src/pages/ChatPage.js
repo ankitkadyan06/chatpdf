@@ -4,7 +4,6 @@ import Preview from '../components/ChatPage/Preview'
 import ChatBot from '../components/ChatPage/ChatBot'
 
 const ChatPage = () => {
-  
   return (
     <div className='flex md:flex-row flex-col w-full'>
       <div className='w-full md:w-[15%]'>
