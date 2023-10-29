@@ -37,14 +37,14 @@ function getStyles(name, personName, theme) {
   };
 }
 
-const SideBar = () => {
+const SideBar = ({ dropFile }) => {
   const theme = useTheme();
   const [personName, setPersonName] = useState([]);
   const [uploadedFileName, setUploadedFileName] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
+  
 
-  let dropBoxFile = location.state;
+  
   const handleChange = (event) => {
     const {
       target: { value },
@@ -61,11 +61,11 @@ const SideBar = () => {
 
   
 
-  useEffect(() => {
-    if (dropBoxFile) {
-      dataShow.push(dropBoxFile);
-    }
-  }, [dropBoxFile]);
+useEffect(() => {
+  if (dropFile && !dataShow.includes(dropFile)) {
+    dataShow.push(dropFile);
+  }
+}, [dropFile]);
   console.log(dataShow);
 
   return (
@@ -116,7 +116,22 @@ const SideBar = () => {
           ))}
         </Select>
       </FormControl>
-      {dataShow.map((item, index) => {
+      
+      <Dropzone onDrop={handleDrop}>
+        {({ getRootProps, getInputProps }) => (
+          <div
+            {...getRootProps()}
+            className="dropzone text-center border-[2px] border-dashed border-[#A9A9A9] rounded-[6px] w-[90%] h-[90px] ml-[10px] mt-[15px] cursor-pointer bg-[#2D445B]"
+          >
+            <input {...getInputProps()} />
+            <p className="text-[16px] font-inter text-white">
+              <span className="text-[25px]">+</span> New Chat
+            </p>
+            <p className="text-[#D9D9D9] text-base font-inter">Drop PDF here</p>
+          </div>
+        )}
+      </Dropzone>
+      {dataShow && dataShow.map((item, index) => {
         console.log(item);
         return (
           <div
@@ -137,20 +152,6 @@ const SideBar = () => {
           </div>
         );
       })}
-      <Dropzone onDrop={handleDrop}>
-        {({ getRootProps, getInputProps }) => (
-          <div
-            {...getRootProps()}
-            className="dropzone text-center border-[2px] border-dashed border-[#A9A9A9] rounded-[6px] w-[90%] h-[90px] ml-[10px] mt-[15px] cursor-pointer bg-[#2D445B]"
-          >
-            <input {...getInputProps()} />
-            <p className="text-[16px] font-inter text-white">
-              <span className="text-[25px]">+</span> New Chat
-            </p>
-            <p className="text-[#D9D9D9] text-base font-inter">Drop PDF here</p>
-          </div>
-        )}
-      </Dropzone>
     </div>
   );
 };
