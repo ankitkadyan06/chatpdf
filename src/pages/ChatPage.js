@@ -5,6 +5,7 @@ import ChatBot from '../components/ChatPage/ChatBot'
 import { useLocation } from 'react-router-dom'
 
 
+
 const ChatPage = () => {
 
   const location = useLocation();

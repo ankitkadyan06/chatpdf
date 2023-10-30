@@ -15,26 +15,80 @@ import moveTo from "../assets/images/moveTo.svg";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const DropBox = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const navigate = useNavigate();
 
-
   const handleFileUpload = (acceptedFiles) => {
-    if (acceptedFiles && acceptedFiles.length > 0) {
-      setSelectedFile(acceptedFiles[0]);
-    }
+    setSelectedFiles([...selectedFiles, ...acceptedFiles]);
   };
 
-  const handleFileInputChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
+  const goToChat = (file) => {
+    navigate("/chat", { state: { file } });
   };
 
-  const name = selectedFile ? selectedFile: "";
-  const goToChat = () => {
-    navigate("/chat" , {state : {file: name}})
-  }
+  const renderSelectedFiles = () => {
+    return selectedFiles.map((file, index) => (
+      <div key={index} className="w-[180px] h-[182px] mr-[3%] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow">
+        <div>
+          <div className="flex absolute z-[2] ml-[5px] mt-[5px]">
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              className="w-[19px] h-[19px] cursor-pointer"
+            />
+            <div className="dropdown relative left-[340%]">
+              <img src={threeDot} alt="" className="dropbtn" />
+              <div className="dropdown-content bg-white w-[121px] rounded-[5px] pl-[10px] shadow-md">
+                <div className="flex cursor-pointer" onClick={() => goToChat(file)}>
+                  <img src={chatIcon} alt="" className="w-[16px]" />
+                  <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
+                    Chat
+                  </p>
+                </div>
+                <div className="flex cursor-pointer">
+                  <img src={deletePdf} alt="" className="w-[16px]" />
+                  <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
+                    Delete
+                  </p>
+                </div>
+                <div className="flex cursor-pointer">
+                  <img src={rename} alt="" className="w-[16px]" />
+                  <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
+                    Rename
+                  </p>
+                </div>
+                <div className="flex cursor-pointer">
+                  <img src={moveTo} alt="" className="w-[16px]" />
+                  <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
+                    Move To
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <Document file={URL.createObjectURL(file)}>
+            <Page pageNumber={1} />
+          </Document>
+        </div>
+        <div className="relative h-[80px] z-[1] bg-[#F2F2F2] pl-[10px] pt-[10px] cursor-pointer" onClick={() => goToChat(file)}>
+          <p
+            className="text-[#0F8CFF] text-[14px] font-poppins mt-[10px]"
+            style={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {file.name}
+          </p>
+          <p className="text-[#3B3B3B] text-[12px] font-poppins">
+            Updated Chat with PDF
+          </p>
+        </div>
+      </div>
+    ));
+  };
 
   return (
     <div>
@@ -68,15 +122,13 @@ const DropBox = () => {
           type="file"
           className="hidden"
           id="browse"
-          onChange={handleFileInputChange}
           accept=".pdf"
         />
         <p className="text-[#0F8CFF] text-base font-poppins cursor-pointer">
           From URL
         </p>
       </div>
-
-      {selectedFile && (
+      {selectedFiles.length > 0 && (
         <div className="w-[82%] h-[250px] mb-[20px] bg-white rounded-[22px] ml-[130px] mt-[50px] px-[11px] py-[10px]">
           <div className="flex justify-between">
             <div className="text-[#282828] text-[23px] font-poppins font-medium">
@@ -95,7 +147,6 @@ const DropBox = () => {
                   </p>
                 </button>
               </div>
-
               <div className="flex mr-[18px]">
                 <button className="flex">
                   <img
@@ -126,71 +177,8 @@ const DropBox = () => {
               </div>
             </div>
           </div>
-
-          <div className="w-[180px] h-[182px] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow"> 
-            <div>
-              <div className="flex absolute z-[2] ml-[5px] mt-[5px]">
-                <input
-                  type="checkbox"
-                  name=""
-                  id=""
-                  className="w-[19px] h-[19px] cursor-pointer"
-                />
-                <div className="dropdown relative left-[340%]">
-                  <img src={threeDot} alt="" className="dropbtn" />
-                  <div className="dropdown-content bg-white w-[121px] rounded-[5px] pl-[10px] shadow-md">
-                    <div
-                      className="flex cursor-pointer"
-                      onClick={goToChat}
-                    >
-                      <img src={chatIcon} alt="" className="w-[16px]" />
-                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
-                        Chat
-                      </p>
-                    </div>
-                    <div className="flex cursor-pointer">
-                      <img src={deletePdf} alt="" className="w-[16px]" />
-                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
-                        Delete
-                      </p>
-                    </div>
-                    <div className="flex cursor-pointer">
-                      <img src={rename} alt="" className="w-[16px]" />
-                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
-                        Rename
-                      </p>
-                    </div>
-                    <div className="flex cursor-pointer">
-                      <img src={moveTo} alt="" className="w-[16px]" />
-                      <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
-                        Move To
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <Document file={URL.createObjectURL(selectedFile)}>
-                <Page pageNumber={1} />
-              </Document>
-            </div>
-            <div
-              className="relative h-[80px] z-[1] bg-[#F2F2F2] pl-[10px] pt-[10px] cursor-pointer"
-              onClick={goToChat}
-            >
-              <p
-                className="text-[#0F8CFF] text-[14px] font-poppins mt-[10px]"
-                style={{
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {selectedFile.name}
-              </p>
-              <p className="text-[#3B3B3B] text-[12px] font-poppins">
-                Updated Chat with PDF
-              </p>
-            </div>
+          <div className="flex flex-wrap">
+            {renderSelectedFiles()}
           </div>
         </div>
       )}
