@@ -28,7 +28,7 @@ const DropBox = () => {
 
   const renderSelectedFiles = () => {
     return selectedFiles.map((file, index) => (
-      <div key={index} className="w-[180px] h-[182px] mr-[3%] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow">
+      <div key={index} className="w-[180px] h-[182px] ml-[10px] mr-[2%] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow">
         <div>
           <div className="flex absolute z-[2] ml-[5px] mt-[5px]">
             <input

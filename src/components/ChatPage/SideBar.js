@@ -63,11 +63,10 @@ const SideBar = ({ dropFile }) => {
 
   useEffect(() => {
     if (dropFile && !dataShow.includes(dropFile)) {
-      // Create a new array with the existing dataShow and the new dropFile
       const newDataShow = [...dataShow, dropFile];
       setDataShow(newDataShow);
     }
-  }, [dropFile]);
+  }, [dropFile, dataShow]);
 
   console.log(dataShow);
 
