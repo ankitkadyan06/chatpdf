@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import documentImg from "../assets/images/documentIcon.svg";
 
 
-const dataShow = [];
+
 
 
 const ITEM_HEIGHT = 48;
@@ -42,6 +42,7 @@ const SideBar = ({ dropFile }) => {
   const [personName, setPersonName] = useState([]);
   const [uploadedFileName, setUploadedFileName] = useState("");
   const navigate = useNavigate();
+  const [ dataShow, setDataShow ]= useState([]);
   
 
   
@@ -60,11 +61,14 @@ const SideBar = ({ dropFile }) => {
 
   
 
-useEffect(() => {
-  if (dropFile && !dataShow.includes(dropFile)) {
-    dataShow.push(dropFile);
-  }
-}, [dropFile]);
+  useEffect(() => {
+    if (dropFile && !dataShow.includes(dropFile)) {
+      // Create a new array with the existing dataShow and the new dropFile
+      const newDataShow = [...dataShow, dropFile];
+      setDataShow(newDataShow);
+    }
+  }, [dropFile]);
+
   console.log(dataShow);
 
   return (
