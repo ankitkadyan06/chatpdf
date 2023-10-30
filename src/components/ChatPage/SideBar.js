@@ -8,7 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import "../assets/css/Sidebar.css";
 import textImg from "../assets/images/textImg.svg";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import documentImg from "../assets/images/documentIcon.svg";
 
 
@@ -53,7 +53,6 @@ const SideBar = ({ dropFile }) => {
   };
 
   const handleDrop = (acceptedFiles) => {
-    // Assuming you want to display the name of the first uploaded file
     if (acceptedFiles.length > 0) {
       setUploadedFileName(acceptedFiles[0].name);
     }
