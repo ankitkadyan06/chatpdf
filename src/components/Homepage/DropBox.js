@@ -28,7 +28,10 @@ const DropBox = () => {
 
   const renderSelectedFiles = () => {
     return selectedFiles.map((file, index) => (
-      <div key={index} className="w-[180px] h-[182px] ml-[10px] mr-[2%] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow">
+      <div
+        key={index}
+        className="w-[180px] h-[182px] ml-[10px] mt-[20px] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow"
+      >
         <div>
           <div className="flex absolute z-[2] ml-[5px] mt-[5px]">
             <input
@@ -40,7 +43,10 @@ const DropBox = () => {
             <div className="dropdown relative left-[340%]">
               <img src={threeDot} alt="" className="dropbtn" />
               <div className="dropdown-content bg-white w-[121px] rounded-[5px] pl-[10px] shadow-md">
-                <div className="flex cursor-pointer" onClick={() => goToChat(file)}>
+                <div
+                  className="flex cursor-pointer"
+                  onClick={() => goToChat(file)}
+                >
                   <img src={chatIcon} alt="" className="w-[16px]" />
                   <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
                     Chat
@@ -71,7 +77,10 @@ const DropBox = () => {
             <Page pageNumber={1} />
           </Document>
         </div>
-        <div className="relative h-[80px] z-[1] bg-[#F2F2F2] pl-[10px] pt-[10px] cursor-pointer" onClick={() => goToChat(file)}>
+        <div
+          className="relative h-[80px] z-[1] bg-[#F2F2F2] pl-[10px] pt-[10px] cursor-pointer"
+          onClick={() => goToChat(file)}
+        >
           <p
             className="text-[#0F8CFF] text-[14px] font-poppins mt-[10px]"
             style={{
@@ -118,18 +127,13 @@ const DropBox = () => {
         >
           Browse my Computer
         </label>
-        <input
-          type="file"
-          className="hidden"
-          id="browse"
-          accept=".pdf"
-        />
+        <input type="file" className="hidden" id="browse" accept=".pdf" />
         <p className="text-[#0F8CFF] text-base font-poppins cursor-pointer">
           From URL
         </p>
       </div>
       {selectedFiles.length > 0 && (
-        <div className="w-[82%] h-[250px] mb-[20px] bg-white rounded-[22px] ml-[130px] mt-[50px] px-[11px] py-[10px]">
+        <div className="w-[82%] h-auto mb-[20px] bg-white rounded-[22px] ml-[130px] mt-[50px] px-[11px] py-[10px]">
           <div className="flex justify-between">
             <div className="text-[#282828] text-[23px] font-poppins font-medium">
               My Chat
@@ -165,10 +169,10 @@ const DropBox = () => {
                     type="checkbox"
                     name=""
                     id="select"
-                    className="w-[16px] h-[16px] relative top-[3px]"
+                    className="w-[16px] h-[16px] relative top-[3px] cursor-pointer"
                   />
                   <label
-                    className="text-[#555555] text-base font-poppins ml-[10px] cursor-pointer"
+                    className="text-[#555555] hover:text-[#0F8CFF] text-base font-poppins ml-[10px] cursor-pointer"
                     htmlFor="select"
                   >
                     Select all
@@ -177,9 +181,7 @@ const DropBox = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-wrap">
-            {renderSelectedFiles()}
-          </div>
+          <div className="grid grid-cols-5">{renderSelectedFiles()}</div>
         </div>
       )}
     </div>

@@ -11,10 +11,6 @@ import textImg from "../assets/images/textImg.svg";
 import { useNavigate } from "react-router-dom";
 import documentImg from "../assets/images/documentIcon.svg";
 
-
-
-
-
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -42,10 +38,8 @@ const SideBar = ({ dropFile }) => {
   const [personName, setPersonName] = useState([]);
   const [uploadedFileName, setUploadedFileName] = useState("");
   const navigate = useNavigate();
-  const [ dataShow, setDataShow ]= useState([]);
-  
+  const [dataShow, setDataShow] = useState([]);
 
-  
   const handleChange = (event) => {
     const {
       target: { value },
@@ -58,8 +52,6 @@ const SideBar = ({ dropFile }) => {
       setUploadedFileName(acceptedFiles[0].name);
     }
   };
-
-  
 
   useEffect(() => {
     if (dropFile && !dataShow.includes(dropFile)) {
@@ -118,7 +110,7 @@ const SideBar = ({ dropFile }) => {
           ))}
         </Select>
       </FormControl>
-      
+
       <Dropzone onDrop={handleDrop}>
         {({ getRootProps, getInputProps }) => (
           <div
@@ -133,27 +125,28 @@ const SideBar = ({ dropFile }) => {
           </div>
         )}
       </Dropzone>
-      {dataShow && dataShow.map((item, index) => {
-        console.log(item);
-        return (
-          <div
-            key={index}
-            className="text-white ml-[10px] mt-4 flex bg-[#1677FF] rounded-[7px] px-[13px] py-[5px] mx-[10px] cursor-pointer"
-          >
-            <img src={textImg} alt="" />
-            <p
-              className="ml-[7px] mt-[10px]"
-              style={{
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-              }}
+      {dataShow &&
+        dataShow.map((item, index) => {
+          console.log(item);
+          return (
+            <div
+              key={index}
+              className="text-white ml-[10px] mt-4 flex bg-[#1677FF] rounded-[7px] px-[13px] mx-[10px] cursor-pointer"
             >
-              {item.file.name}
-            </p>
-          </div>
-        );
-      })}
+              <img src={textImg} alt="" />
+              <p
+                className="ml-[7px] mt-[10px]"
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {item.file.name}
+              </p>
+            </div>
+          );
+        })}
     </div>
   );
 };
