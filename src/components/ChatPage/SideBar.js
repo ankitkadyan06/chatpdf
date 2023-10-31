@@ -4,12 +4,8 @@ import dfos from "../assets/images/dfosLogo.svg";
 import "../assets/css/Sidebar.css";
 import textImg from "../assets/images/textImg.svg";
 import { useNavigate } from "react-router-dom";
-// import documentImg from "../assets/images/documentIcon.svg";
-
 
 const SideBar = ({ dropFile }) => {
-
-  // const [uploadedFileName, setUploadedFileName] = useState("");
   const navigate = useNavigate();
   const [dataShow, setDataShow] = useState([]);
 
@@ -25,10 +21,10 @@ const SideBar = ({ dropFile }) => {
     if (dropFile && !dataShow.includes(dropFile)) {
       setDataShow((prevDataShow) => [...prevDataShow, dropFile]);
     }
-  }, [dropFile,dataShow]);
+  }, [dropFile, dataShow]);
 
-  console.log("dataShow" , dataShow);
-  console.log("dropFile" , dropFile);
+  console.log("dataShow", dataShow);
+  console.log("dropFile", dropFile);
 
   return (
     <div className="bg-[#001529] h-[100vh]">
@@ -42,49 +38,15 @@ const SideBar = ({ dropFile }) => {
       />
       <hr className="border-[1px] border-solid border-[#CACACA] w-[90%] ml-[5%]" />
 
-        <select name="" id="" className="w-[90%] py-[5px] px-[5px] text-white ml-[10px] rounded-[6px] border-[1px] border-solid border-[#D9D9D9] focus:outline-none bg-[#001529]">
-          <option value="" className="flex">
-            {/* <img src={documentImg} alt="" /> */}
-            My documents</option>
-        </select>
-
-      {/* <FormControl sx={{ m: 1, width: 210, mt: 3 }} className="ml-[10px]">
-        <Select
-          multiple
-          displayEmpty
-          className="text-white"
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput />}
-          renderValue={(selected) => {
-            if (selected.length === 0) {
-              return (
-                <div className="font-poppins">
-                  <div className="flex">
-                    <img src={documentImg} alt="" />
-                    <p className="relative left-[12px] top-[8px]">
-                      My Document
-                    </p>
-                  </div>
-                </div>
-              );
-            }
-
-            return selected.join(", ");
-          }}
-          MenuProps={MenuProps}
-        >
-          {names.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
-            >
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl> */}
+      <select
+        name=""
+        id=""
+        className="w-[90%] py-[5px] px-[5px] text-white ml-[10px] rounded-[6px] border-[1px] border-solid border-[#D9D9D9] focus:outline-none bg-[#001529]"
+      >
+        <option value="" className="flex">
+          My documents
+        </option>
+      </select>
 
       <Dropzone onDrop={handleDrop}>
         {({ getRootProps, getInputProps }) => (
@@ -102,7 +64,6 @@ const SideBar = ({ dropFile }) => {
       </Dropzone>
       {dataShow &&
         dataShow[0]?.selectedFiles?.map((item, index) => {
-    
           return (
             <div
               key={index}
