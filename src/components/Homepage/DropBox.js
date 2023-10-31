@@ -26,6 +26,11 @@ const DropBox = () => {
     navigate("/chat", { state: { file } });
   };
 
+  const deleteFile = (file) => {
+    const updatedFiles = selectedFiles.filter((selectedFile) => selectedFile !== file);
+    setSelectedFiles(updatedFiles);
+  };
+
   const renderSelectedFiles = () => {
     return selectedFiles.map((file, index) => (
       <div
@@ -52,7 +57,7 @@ const DropBox = () => {
                     Chat
                   </p>
                 </div>
-                <div className="flex cursor-pointer">
+                <div className="flex cursor-pointer" onClick={() => deleteFile(file)}>
                   <img src={deletePdf} alt="" className="w-[16px]" />
                   <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
                     Delete
@@ -152,7 +157,7 @@ const DropBox = () => {
                 </button>
               </div>
               <div className="flex mr-[18px]">
-                <button className="flex">
+                <button className="flex" onClick={() => console.log("Delete selected files")}>
                   <img
                     src={deleteIcon}
                     alt=""
