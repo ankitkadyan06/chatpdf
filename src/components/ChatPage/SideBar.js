@@ -1,51 +1,51 @@
 import React, { useState, useEffect } from "react";
 import Dropzone from "react-dropzone";
 import dfos from "../assets/images/dfosLogo.svg";
-import { useTheme } from "@mui/material/styles";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+// import { useTheme } from "@mui/material/styles";
+// import OutlinedInput from "@mui/material/OutlinedInput";
+// import MenuItem from "@mui/material/MenuItem";
+// import FormControl from "@mui/material/FormControl";
+// import Select from "@mui/material/Select";
 import "../assets/css/Sidebar.css";
 import textImg from "../assets/images/textImg.svg";
 import { useNavigate } from "react-router-dom";
 import documentImg from "../assets/images/documentIcon.svg";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = { 
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 100,
-    },
-  },
-};
+// const ITEM_HEIGHT = 48;
+// const ITEM_PADDING_TOP = 8;
+// const MenuProps = {
+//   PaperProps: {
+//     style: {
+//       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+//       width: 100,
+//     },
+//   },
+// };
 
-const names = ["javascript", "Van Henry", "April Tucker"];
+// const names = ["javascript", "Van Henry", "April Tucker"];
 
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
+// function getStyles(name, personName, theme) {
+//   return {
+//     fontWeight:
+//       personName.indexOf(name) === -1
+//         ? theme.typography.fontWeightRegular
+//         : theme.typography.fontWeightMedium,
+//   };
+// }
 
 const SideBar = ({ dropFile }) => {
-  const theme = useTheme();
-  const [personName, setPersonName] = useState([]);
+  // const theme = useTheme();
+  // const [personName, setPersonName] = useState([]);
   const [uploadedFileName, setUploadedFileName] = useState("");
   const navigate = useNavigate();
   const [dataShow, setDataShow] = useState([]);
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(typeof value === "string" ? value.split(",") : value);
-  };
+  // const handleChange = (event) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
+  //   setPersonName(typeof value === "string" ? value.split(",") : value);
+  // };
 
   const handleDrop = (acceptedFiles) => {
     if (acceptedFiles.length > 0) {
@@ -73,7 +73,14 @@ const SideBar = ({ dropFile }) => {
         }}
       />
       <hr className="border-[1px] border-solid border-[#CACACA] w-[90%] ml-[5%]" />
-      <FormControl sx={{ m: 1, width: 210, mt: 3 }} className="ml-[10px]">
+
+        <select name="" id="" className="w-[90%] py-[5px] px-[5px] text-white ml-[10px] rounded-[6px] border-[1px] border-solid border-[#D9D9D9] focus:outline-none bg-[#001529]">
+          <option value="" className="flex">
+            <img src={documentImg} alt="" />
+            <p>My documents</p></option>
+        </select>
+
+      {/* <FormControl sx={{ m: 1, width: 210, mt: 3 }} className="ml-[10px]">
         <Select
           multiple
           displayEmpty
@@ -109,7 +116,7 @@ const SideBar = ({ dropFile }) => {
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControl> */}
 
       <Dropzone onDrop={handleDrop}>
         {({ getRootProps, getInputProps }) => (
