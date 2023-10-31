@@ -16,18 +16,21 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 const DropBox = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
+  
   const navigate = useNavigate();
 
   const handleFileUpload = (acceptedFiles) => {
     setSelectedFiles([...selectedFiles, ...acceptedFiles]);
   };
-
+  console.log(selectedFiles);
   const goToChat = (file) => {
-    navigate("/chat", { state: { file } });
+    navigate("/chat", { state: { selectedFiles } });
   };
 
   const deleteFile = (file) => {
-    const updatedFiles = selectedFiles.filter((selectedFile) => selectedFile !== file);
+    const updatedFiles = selectedFiles.filter(
+      (selectedFile) => selectedFile !== file
+    );
     setSelectedFiles(updatedFiles);
   };
 
@@ -57,7 +60,10 @@ const DropBox = () => {
                     Chat
                   </p>
                 </div>
-                <div className="flex cursor-pointer" onClick={() => deleteFile(file)}>
+                <div
+                  className="flex cursor-pointer"
+                  onClick={() => deleteFile(file)}
+                >
                   <img src={deletePdf} alt="" className="w-[16px]" />
                   <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
                     Delete
@@ -157,7 +163,10 @@ const DropBox = () => {
                 </button>
               </div>
               <div className="flex mr-[18px]">
-                <button className="flex" onClick={() => console.log("Delete selected files")}>
+                <button
+                  className="flex"
+                  onClick={() => console.log("Delete selected files")}
+                >
                   <img
                     src={deleteIcon}
                     alt=""
