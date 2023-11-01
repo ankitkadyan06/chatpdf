@@ -16,7 +16,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 const DropBox = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  
+
   const navigate = useNavigate();
 
   const handleFileUpload = (acceptedFiles) => {
