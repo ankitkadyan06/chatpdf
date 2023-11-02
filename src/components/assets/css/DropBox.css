@@ -9,7 +9,7 @@ filter: drop-shadow(0px 0px 45px rgba(20, 91, 115, 0.25));
 
 
 
-canvas{
+.react-pdf__Page__canvas{
 border-radius: 5px;
 height: 150px !important;
 width: 178px !important; 

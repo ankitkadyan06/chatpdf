@@ -5,9 +5,10 @@ import "../assets/css/Sidebar.css";
 import textImg from "../assets/images/textImg.svg";
 import { useNavigate } from "react-router-dom";
 
-const SideBar = ({ dropFile }) => {
+const SideBar = ({ dropFile, setviewSelectedpdf }) => {
   const navigate = useNavigate();
   const [dataShow, setDataShow] = useState([]);
+  const [selectedPdf, setSelectedPdf] = useState(null);
 
   const handleDrop = (acceptedFiles) => {
     if (acceptedFiles.length > 0) {
@@ -15,6 +16,11 @@ const SideBar = ({ dropFile }) => {
       newDataShow[0].selectedFiles.push(acceptedFiles[0]);
       setDataShow(newDataShow);
     }
+  };
+
+  const handleClickPdf = (index) => {
+    setSelectedPdf(index);
+    setviewSelectedpdf(dataShow[0].selectedFiles[index]);
   };
 
   useEffect(() => {
@@ -67,7 +73,10 @@ const SideBar = ({ dropFile }) => {
           return (
             <div
               key={index}
-              className="text-white ml-[10px] mt-4 flex bg-[#1677FF] rounded-[7px] px-[13px] mx-[10px] cursor-pointer"
+              className={`text-white ml-[10px] mt-4 flex rounded-[7px] px-[13px] mx-[10px] cursor-pointer ${
+                selectedPdf === index ? "bg-[#1677FF]" : ""
+              }`}
+              onClick={() => handleClickPdf(index)}
             >
               <img src={textImg} alt="" />
               <p
