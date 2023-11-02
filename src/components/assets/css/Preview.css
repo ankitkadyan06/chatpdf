@@ -1,0 +1,15 @@
+#preview-container .react-pdf__Document {
+  width: 660px !important;
+  height: 100vh !important;
+}
+
+#preview-container .react-pdf__Page {
+  width: 660px ;
+  height: 100vh;
+}
+
+#preview-container .react-pdf__Page__canvas {
+  border-radius: 0px;
+  height: 100vh !important;
+  width: 660px !important;
+}
