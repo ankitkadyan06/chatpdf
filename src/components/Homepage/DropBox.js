@@ -25,7 +25,7 @@ const DropBox = () => {
   console.log(selectedFiles);
 
   const goToChat = (file, index) => {
-    console.log(index);
+    // console.log(index);
     navigate("/chat", { state: { selectedFiles, index } });
   };
 
@@ -92,7 +92,7 @@ const DropBox = () => {
           <div
             className="relative h-[80px] z-[1] bg-[#F2F2F2] pl-[10px] pt-[10px] cursor-pointer"
             onClick={() => {
-              console.log(index);
+              // console.log(index); 
               goToChat(file, index);
             }}
           >

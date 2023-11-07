@@ -5,11 +5,9 @@ import "../assets/css/Sidebar.css";
 import textImg from "../assets/images/textImg.svg";
 import { useNavigate } from "react-router-dom";
 
-const SideBar = ({ dropFile, setviewSelectedpdf }) => {
+const SideBar = ({ dropFile, setViewSelectedPdf,selectedPdf,setSelectedPdf }) => {
   const navigate = useNavigate();
   const [dataShow, setDataShow] = useState([]);
-  const [selectedPdf, setSelectedPdf] = useState(setviewSelectedpdf);
-
   const handleDrop = (acceptedFiles) => {
     if (acceptedFiles.length > 0) {
       const newDataShow = [...dataShow];
@@ -17,10 +15,10 @@ const SideBar = ({ dropFile, setviewSelectedpdf }) => {
       setDataShow(newDataShow);
     }
   };
-
+console.log(selectedPdf)
   const handleClickPdf = (index) => {
     setSelectedPdf(index);
-    // setviewSelectedpdf(dataShow[0].selectedFiles[index]);
+    // setViewSelectedPdf(dataShow[0].selectedFiles[index])
   };
 
   useEffect(() => {
