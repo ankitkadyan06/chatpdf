@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const SideBar = ({ dropFile, setviewSelectedpdf }) => {
   const navigate = useNavigate();
   const [dataShow, setDataShow] = useState([]);
-  const [selectedPdf, setSelectedPdf] = useState(null);
+  const [selectedPdf, setSelectedPdf] = useState(setviewSelectedpdf);
 
   const handleDrop = (acceptedFiles) => {
     if (acceptedFiles.length > 0) {
@@ -20,7 +20,7 @@ const SideBar = ({ dropFile, setviewSelectedpdf }) => {
 
   const handleClickPdf = (index) => {
     setSelectedPdf(index);
-    setviewSelectedpdf(dataShow[0].selectedFiles[index]);
+    // setviewSelectedpdf(dataShow[0].selectedFiles[index]);
   };
 
   useEffect(() => {

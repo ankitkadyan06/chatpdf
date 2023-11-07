@@ -23,8 +23,10 @@ const DropBox = () => {
     setSelectedFiles([...selectedFiles, ...acceptedFiles]);
   };
   console.log(selectedFiles);
-  const goToChat = (file) => {
-    navigate("/chat", { state: { selectedFiles } });
+
+  const goToChat = (file, index) => {
+    console.log(index);
+    navigate("/chat", { state: { selectedFiles, index } });
   };
 
   const deleteFile = (file) => {
@@ -35,79 +37,82 @@ const DropBox = () => {
   };
 
   const renderSelectedFiles = () => {
-    return selectedFiles.map((file, index) => (
-      <div
-        key={index}
-        className="w-[180px] h-[182px] ml-[10px] mt-[20px] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow"
-      >
-        <div>
-          <div className="flex absolute z-[2] ml-[5px] mt-[5px]">
-            <input
-              type="checkbox"
-              name=""
-              id=""
-              className="w-[19px] h-[19px] cursor-pointer"
-            />
-            <div className="dropdown relative left-[340%]">
-              <img src={threeDot} alt="" className="dropbtn" />
-              <div className="dropdown-content bg-white w-[121px] rounded-[5px] pl-[10px] shadow-md">
-                <div
-                  className="flex cursor-pointer"
-                  onClick={() => goToChat(file)}
-                >
-                  <img src={chatIcon} alt="" className="w-[16px]" />
-                  <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
-                    Chat
-                  </p>
-                </div>
-                <div
-                  className="flex cursor-pointer"
-                  onClick={() => deleteFile(file)}
-                >
-                  <img src={deletePdf} alt="" className="w-[16px]" />
-                  <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
-                    Delete
-                  </p>
-                </div>
-                <div className="flex cursor-pointer">
-                  <img src={rename} alt="" className="w-[16px]" />
-                  <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
-                    Rename
-                  </p>
-                </div>
-                <div className="flex cursor-pointer">
-                  <img src={moveTo} alt="" className="w-[16px]" />
-                  <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
-                    Move To
-                  </p>
+    return selectedFiles.map((file, index) => {
+      // console.log(index)
+      return (
+        <div
+          key={index}
+          className="w-[180px] h-[182px] ml-[10px] mt-[20px] border-[0.5px] border-solid border-[#E9E9E9] rounded-[5px] shadow"
+        >
+          <div>
+            <div className="flex absolute z-[2] ml-[5px] mt-[5px]">
+              <input
+                type="checkbox"
+                name=""
+                id=""
+                className="w-[19px] h-[19px] cursor-pointer"
+              />
+              <div className="dropdown relative left-[340%]">
+                <img src={threeDot} alt="" className="dropbtn" />
+                <div className="dropdown-content bg-white w-[121px] rounded-[5px] pl-[10px] shadow-md">
+                  <div className="flex cursor-pointer">
+                    <img src={chatIcon} alt="" className="w-[16px]" />
+                    <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
+                      Chat
+                    </p>
+                  </div>
+                  <div
+                    className="flex cursor-pointer"
+                    onClick={() => deleteFile(file)}
+                  >
+                    <img src={deletePdf} alt="" className="w-[16px]" />
+                    <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
+                      Delete
+                    </p>
+                  </div>
+                  <div className="flex cursor-pointer">
+                    <img src={rename} alt="" className="w-[16px]" />
+                    <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
+                      Rename
+                    </p>
+                  </div>
+                  <div className="flex cursor-pointer">
+                    <img src={moveTo} alt="" className="w-[16px]" />
+                    <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
+                      Move To
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
+            <Document file={URL.createObjectURL(file)}>
+              <Page pageNumber={1} />
+            </Document>
           </div>
-          <Document file={URL.createObjectURL(file)}>
-            <Page pageNumber={1} />
-          </Document>
-        </div>
-        <div
-          className="relative h-[80px] z-[1] bg-[#F2F2F2] pl-[10px] pt-[10px] cursor-pointer"
-          onClick={() => goToChat(file)}
-        >
-          <p
-            className="text-[#0F8CFF] text-[14px] font-poppins mt-[10px]"
-            style={{
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
+          <div
+            className="relative h-[80px] z-[1] bg-[#F2F2F2] pl-[10px] pt-[10px] cursor-pointer"
+            onClick={() => {
+              console.log(index);
+              goToChat(file, index);
             }}
           >
-            {file.name}
-          </p>
-          <p className="text-[#3B3B3B] text-[12px] font-poppins">
-            Updated Chat with PDF
-          </p>
+            <p
+              className="text-[#0F8CFF] text-[14px] font-poppins mt-[10px]"
+              style={{
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {file.name}
+            </p>
+            <p className="text-[#3B3B3B] text-[12px] font-poppins">
+              Updated Chat with PDF
+            </p>
+          </div>
         </div>
-      </div>
-    ));
+      );
+    });
   };
 
   return (
