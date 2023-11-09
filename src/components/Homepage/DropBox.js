@@ -70,17 +70,19 @@ const DropBox = () => {
       await axios.delete(
         `http://61.246.6.48:8000/api/aigenerate/api/pdf_files/${file.id}`
       );
-      const response = await axios.get("http://61.246.6.48:8000/api/aigenerate/api/pdf_files/");
-      if (response.message === 'PDF file deleted successfully') {
-      axios
-      .get("http://61.246.6.48:8000/api/aigenerate/api/pdf_files/",)
-      .then((response) => {
-        setSelectedFiles(response.data);
-      })
-      .catch((error) => {
-        return console.log(error);
-      });
-    }
+      const response = await axios.get(
+        "http://61.246.6.48:8000/api/aigenerate/api/pdf_files/"
+      );
+      if (response.message === "PDF file deleted successfully") {
+        axios
+          .get("http://61.246.6.48:8000/api/aigenerate/api/pdf_files/")
+          .then((response) => {
+            setSelectedFiles(response.data);
+          })
+          .catch((error) => {
+            return console.log(error);
+          });
+      }
       const updatedFiles = selectedFiles.filter(
         (selectedFile) => selectedFile.id !== file.id
       );
