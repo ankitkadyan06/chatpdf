@@ -5,7 +5,7 @@ import "../assets/css/Sidebar.css";
 import textImg from "../assets/images/textImg.svg";
 import { useNavigate } from "react-router-dom";
 
-const SideBar = ({ dropFile, setViewSelectedPdf,selectedPdf,setSelectedPdf }) => {
+const SideBar = ({ dropFile, setViewSelectedPdf, selectedPdf, setSelectedPdf }) => {
   const navigate = useNavigate();
   const [dataShow, setDataShow] = useState([]);
   const handleDrop = (acceptedFiles) => {

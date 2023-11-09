@@ -6,10 +6,16 @@
 #preview-container .react-pdf__Page {
   width: 100%;
   height: 100vh;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 #preview-container .react-pdf__Page__canvas {
   border-radius: 4px;
   height: 100vh !important;
   width: 100% !important;
+}
+
+#preview-container{
+  border-right: 1px solid #D9D9D9;
 }

@@ -1,0 +1,9 @@
+.arrow-list {
+    list-style: none; 
+  }
+  
+  .arrow-list li::before {
+    content: "➤"; 
+    margin-right: 5px; 
+    color: #1677FF;
+  }
