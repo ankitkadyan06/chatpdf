@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/css/DropBox.css";
 import drop from "../assets/images/dropIcon.svg";
 import Dropzone from "react-dropzone";
@@ -11,6 +11,7 @@ import chatIcon from "../assets/images/chatIcon.svg";
 import deletePdf from "../assets/images/deletePdf.svg";
 import rename from "../assets/images/rename.svg";
 import moveTo from "../assets/images/moveTo.svg";
+import axios from "axios";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -19,26 +20,78 @@ const DropBox = () => {
 
   const navigate = useNavigate();
 
-  const handleFileUpload = (acceptedFiles) => {
+  const uploadFile = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("name", file.name);
+      const response = await axios.post(
+        "http://61.246.6.48:8000/api/aigenerate/api/upload_pdf/",
+        formData
+      );
+      if (response.statusText === "Created") {
+        axios
+          .get("http://61.246.6.48:8000/api/aigenerate/api/pdf_files/")
+          .then((res) => {
+            // console.log(res.data)
+            setSelectedFiles(res.data);
+          });
+      }
+    } catch (error) {
+      console.error("Error uploading file", error);
+    }
+  };
+
+  const handleFileUpload = async (acceptedFiles) => {
+    for (const file of acceptedFiles) {
+      await uploadFile(file);
+    }
     setSelectedFiles([...selectedFiles, ...acceptedFiles]);
   };
   console.log(selectedFiles);
 
+  useEffect(() => {
+    axios
+      .get("http://61.246.6.48:8000/api/aigenerate/api/pdf_files/", {})
+      .then((res) => {
+        setSelectedFiles(res.data);
+      })
+      .catch((error) => {
+        return console.log(error);
+      });
+  }, []);
+
   const goToChat = (file, index) => {
-    // console.log(index);
     navigate("/chat", { state: { selectedFiles, index } });
   };
 
-  const deleteFile = (file) => {
-    const updatedFiles = selectedFiles.filter(
-      (selectedFile) => selectedFile !== file
-    );
-    setSelectedFiles(updatedFiles);
+  const deleteFile = async (file) => {
+    try {
+      await axios.delete(
+        `http://61.246.6.48:8000/api/aigenerate/api/pdf_files/${file.id}`
+      );
+      const response = await axios.get("http://61.246.6.48:8000/api/aigenerate/api/pdf_files/");
+      if (response.message === 'PDF file deleted successfully') {
+      axios
+      .get("http://61.246.6.48:8000/api/aigenerate/api/pdf_files/",)
+      .then((response) => {
+        setSelectedFiles(response.data);
+      })
+      .catch((error) => {
+        return console.log(error);
+      });
+    }
+      const updatedFiles = selectedFiles.filter(
+        (selectedFile) => selectedFile.id !== file.id
+      );
+      setSelectedFiles(updatedFiles);
+    } catch (error) {
+      console.error("Error deleting file", error);
+    }
   };
 
   const renderSelectedFiles = () => {
     return selectedFiles.map((file, index) => {
-      // console.log(index)
       return (
         <div
           key={index}
@@ -85,14 +138,13 @@ const DropBox = () => {
                 </div>
               </div>
             </div>
-            <Document file={URL.createObjectURL(file)}>
+            <Document file={"http://61.246.6.48:8000/" + file.file}>
               <Page pageNumber={1} />
             </Document>
           </div>
           <div
             className="relative h-[80px] z-[1] bg-[#F2F2F2] pl-[10px] pt-[10px] cursor-pointer"
             onClick={() => {
-              // console.log(index); 
               goToChat(file, index);
             }}
           >
