@@ -7,7 +7,7 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route exact path="/" element={<HomePage/>}/>
-      <Route path="/chat" element={<ChatPage/>}/>
+      <Route path="/chat/:selectedFile" element={<ChatPage/>}/>
     </Routes>
 
     </BrowserRouter>

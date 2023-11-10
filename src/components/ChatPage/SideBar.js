@@ -1,34 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Dropzone from "react-dropzone";
 import dfos from "../assets/images/dfosLogo.svg";
 import "../assets/css/Sidebar.css";
 import textImg from "../assets/images/textImg.svg";
 import { useNavigate } from "react-router-dom";
 
-const SideBar = ({ dropFile, setViewSelectedPdf, selectedPdf, setSelectedPdf }) => {
+const SideBar = ({ setViewSelectedPdf, selectedPdf, setSelectedPdf, pdfData, defaultSelected, selectedFileName, setSelectedFileName  }) => {
   const navigate = useNavigate();
   const [dataShow, setDataShow] = useState([]);
+
   const handleDrop = (acceptedFiles) => {
     if (acceptedFiles.length > 0) {
-      const newDataShow = [...dataShow];
-      newDataShow[0].selectedFiles.push(acceptedFiles[0]);
-      setDataShow(newDataShow);
+      const newDataShow = acceptedFiles.map((file) => ({
+        selectedFiles: [file],
+        name: file.name,
+      }));
+      setDataShow((prevDataShow) => [...prevDataShow, ...newDataShow]);
     }
-  };
-console.log(selectedPdf)
-  const handleClickPdf = (index) => {
-    setSelectedPdf(index);
-    // setViewSelectedPdf(dataShow[0].selectedFiles[index])
   };
 
-  useEffect(() => {
-    if (dropFile && !dataShow.includes(dropFile)) {
-      setDataShow((prevDataShow) => [...prevDataShow, dropFile]);
-    }
-  }, [dropFile, dataShow]);
+  console.log(selectedPdf);
+
+  const handleClickPdf = (index, fileName) => {
+    setSelectedPdf(index);
+    setSelectedFileName(fileName);
+  };
+
+  // useEffect(() => {
+  //   if (dropFile && !dataShow.includes(dropFile)) {
+  //     setDataShow((prevDataShow) => [...prevDataShow, dropFile]);
+  //   }
+  // }, [dropFile, dataShow]);
+
+  // useEffect(() => {
+  //   if (pdfData) {
+  //     setDataShow(pdfData.map((item) => ({ selectedFiles: [item], name: item.name })));
+  //   }
+  // }, [pdfData]);
 
   console.log("dataShow", dataShow);
-  console.log("dropFile", dropFile);
 
   return (
     <div className="bg-[#001529] h-[100vh]">
@@ -66,16 +76,16 @@ console.log(selectedPdf)
           </div>
         )}
       </Dropzone>
-      {dataShow &&
-        dataShow[0]?.selectedFiles?.map((item, index) => {
-          return (
-            <div
-              key={index}
-              className={`text-white ml-[10px] mt-4 flex rounded-[7px] px-[13px] mx-[10px] cursor-pointer ${
-                selectedPdf === index ? "bg-[#1677FF]" : ""
-              }`}
-              onClick={() => handleClickPdf(index)}
-            >
+      {pdfData &&
+      pdfData.map((item, index) => {
+        return (
+          <div
+            key={index}
+            className={`text-white ml-[10px] mt-4 flex rounded-[7px] px-[13px] mx-[10px] cursor-pointer ${
+              selectedPdf === parseInt(item.id) ? "bg-[#1677FF]" : ""
+            }`}
+            onClick={() => handleClickPdf(item.id, item.name)}
+          >
               <img src={textImg} alt="" />
               <p
                 className="ml-[7px] mt-[10px]"

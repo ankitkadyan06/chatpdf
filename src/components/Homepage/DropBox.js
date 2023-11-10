@@ -62,7 +62,7 @@ const DropBox = () => {
   }, []);
 
   const goToChat = (file, index) => {
-    navigate("/chat", { state: { selectedFiles, index } });
+    navigate(`/chat/${file.id}`, { state: { selectedFiles, index } });
   };
 
   const deleteFile = async (file) => {
