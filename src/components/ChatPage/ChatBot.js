@@ -20,6 +20,8 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
     return formattedTimestamp;
   };
 
+
+
   const handleSendMessage = async () => {
     const data = {
       file: filteredFile[0].file,
@@ -38,9 +40,10 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
           )
           .then((response) => {
             setMessageData(response.data.chat_messages);
+            setInputMessage(""); // Clear the input area
           })
           .catch((error) => {
-            return console.log(error);
+            console.log(error);
           });
       }
       console.log(response.data);
@@ -64,8 +67,38 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
     }
   }, [selectedPdf]);
   console.log(messageData);
+  useEffect(() => {
+    // Fetch initial messages when selectedPdf changes
+    if (selectedPdf) {
+      axios
+        .get(
+          `http://61.246.6.48:8000/api/aigenerate/api/pdf_files/${selectedPdf}`
+        )
+        .then((response) => {
+          setMessageData(response.data.chat_messages);
+          // Scroll to the bottom of the chat container
+          scrollToBottom();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [selectedPdf]);
+
+  // Scroll to the bottom of the chat container whenever messageData changes
+  useEffect(() => {
+    scrollToBottom();
+  }, [messageData]);
+
+  const scrollToBottom = () => {
+    // Use a ref to get the chat container element
+    const chatContainer = document.getElementById('chatContainer');
+    // Scroll to the bottom
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  };
+
   return (
-    <div className="h-[100vh] bg-white pt-[10px] overflow-y-scroll">
+    <div id="chatContainer" className="h-[100vh] bg-white pt-[10px] overflow-y-scroll">
       <div className="flex justify-between w-full h-[66px] bg-white">
         <p className="text-[#001529] font-poppins text-[20px] font-medium mt-[18px] ml-[10px]">
           Chat
@@ -124,6 +157,7 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
             placeholder="Ask anything"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()} 
             className="w-full text-[#333333] px-2 py-1 rounded-[5px] border border-[#BCBCBC] focus:outline-none"
           />
           <button
