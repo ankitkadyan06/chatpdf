@@ -20,8 +20,6 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
     return formattedTimestamp;
   };
 
-
-
   const handleSendMessage = async () => {
     const data = {
       file: filteredFile[0].file,
@@ -40,7 +38,7 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
           )
           .then((response) => {
             setMessageData(response.data.chat_messages);
-            setInputMessage(""); // Clear the input area
+            setInputMessage("");
           })
           .catch((error) => {
             console.log(error);
@@ -67,8 +65,8 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
     }
   }, [selectedPdf]);
   console.log(messageData);
+
   useEffect(() => {
-    // Fetch initial messages when selectedPdf changes
     if (selectedPdf) {
       axios
         .get(
@@ -76,7 +74,6 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
         )
         .then((response) => {
           setMessageData(response.data.chat_messages);
-          // Scroll to the bottom of the chat container
           scrollToBottom();
         })
         .catch((error) => {
@@ -85,20 +82,20 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
     }
   }, [selectedPdf]);
 
-  // Scroll to the bottom of the chat container whenever messageData changes
   useEffect(() => {
     scrollToBottom();
   }, [messageData]);
 
   const scrollToBottom = () => {
-    // Use a ref to get the chat container element
-    const chatContainer = document.getElementById('chatContainer');
-    // Scroll to the bottom
+    const chatContainer = document.getElementById("chatContainer");
     chatContainer.scrollTop = chatContainer.scrollHeight;
   };
 
   return (
-    <div id="chatContainer" className="h-[100vh] bg-white pt-[10px] overflow-y-scroll">
+    <div
+      id="chatContainer"
+      className="h-[100vh] bg-white pt-[10px] overflow-y-scroll"
+    >
       <div className="flex justify-between w-full h-[66px] bg-white">
         <p className="text-[#001529] font-poppins text-[20px] font-medium mt-[18px] ml-[10px]">
           Chat
@@ -127,8 +124,8 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
           />
         </div>
       </div>
-        {messageData.map((message, index) => (
-          <div className="mb-[50px]">
+      {messageData.map((message, index) => (
+        <div className="mb-[50px]">
           <div
             key={index}
             style={{ maxWidth: `${message.question.length * 14}px` }}
@@ -137,19 +134,20 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
             <div className="text-[#333333] text-sm font-poppins">
               {message.question}
             </div>
-            </div>
-            <div className="flex justify-end mr-[10px] mt-[10px] mb-[10px]">
-              <div className="bg-[#1677FF] rounded-[5px] w-[300px] p-[15px]">
-                <div className="text-white text-sm font-poppins">
-                  {message.response}
-                  <div className="text-right">{formatTimestamp(message.timestamp)}</div>
+          </div>
+          <div className="flex justify-end mr-[10px] mt-[10px] mb-[10px]">
+            <div className="bg-[#1677FF] rounded-[5px] w-[300px] p-[15px]">
+              <div className="text-white text-sm font-poppins">
+                {message.response}
+                <div className="text-right">
+                  {formatTimestamp(message.timestamp)}
                 </div>
               </div>
             </div>
-            </div>
-          
-        ))}
-    
+          </div>
+        </div>
+      ))}
+
       <div className="fixed bottom-0 left-[58%] pl-[25px] pb-[10px] right-0 bg-white w-[43%]">
         <div className="flex justify-end mt-[5px]">
           <input
@@ -157,7 +155,7 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
             placeholder="Ask anything"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()} 
+            onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
             className="w-full text-[#333333] px-2 py-1 rounded-[5px] border border-[#BCBCBC] focus:outline-none"
           />
           <button
