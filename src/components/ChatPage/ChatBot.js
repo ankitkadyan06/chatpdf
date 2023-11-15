@@ -128,7 +128,7 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
         <div className="mb-[50px]">
           <div
             key={index}
-            style={{ maxWidth: `${message.question.length * 14}px` }}
+            style={{ maxWidth: `${message.question.length * 11}px` }}
             className="h-auto bg-[#F3F3FF] border-[1px] border-solid border-[#EDEDFF] rounded-[5px] ml-[10px] p-[5px]"
           >
             <div className="text-[#333333] text-sm font-poppins">
