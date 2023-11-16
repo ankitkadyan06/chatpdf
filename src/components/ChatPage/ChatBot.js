@@ -7,10 +7,13 @@ import edit from "../assets/images/editIcon.svg";
 import reset from "../assets/images/resetIcon.svg";
 import deleteChat from "../assets/images/chatDeleteIcon.svg";
 import axios from "axios";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const ChatBot = ({ selectedPdf, pdfData }) => {
   const [inputMessage, setInputMessage] = useState("");
   const [messageData, setMessageData] = useState([]);
+  const [answerLoading, setAnswerLoading] = useState(false);
 
   let filteredFile =
     pdfData && pdfData.filter((element) => element.id === selectedPdf);
@@ -27,6 +30,7 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
       question: inputMessage,
     };
     try {
+      setAnswerLoading(true)
       const response = await axios.post(
         "http://61.246.6.48:8000/api/aigenerate/api/chat_messages/create/",
         data
@@ -39,28 +43,34 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
           .then((response) => {
             setMessageData(response.data.chat_messages);
             setInputMessage("");
+            setAnswerLoading(false)
           })
           .catch((error) => {
             console.log(error);
+            setAnswerLoading(false)
           });
       }
       console.log(response.data);
     } catch (error) {
       console.error("Error:", error);
+      setAnswerLoading(false)
     }
   };
 
   useEffect(() => {
     if (selectedPdf) {
+      setAnswerLoading(true)
       axios
         .get(
           `http://61.246.6.48:8000/api/aigenerate/api/pdf_files/${selectedPdf}`
         )
         .then((response) => {
           setMessageData(response.data.chat_messages);
+          setAnswerLoading(false);
         })
         .catch((error) => {
-          return console.log(error);
+          console.log(error);
+          setAnswerLoading(false)
         });
     }
   }, [selectedPdf]);
@@ -94,9 +104,10 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
   return (
     <div
       id="chatContainer"
-      className="h-[100vh] bg-white pt-[10px] overflow-y-scroll"
+      className="h-[100vh] bg-white overflow-y-scroll"
     >
-      <div className="flex justify-between w-full h-[66px] bg-white">
+    
+      <div className="sticky top-0 bottom-0 z-50 flex justify-between w-full h-[66px] bg-white">
         <p className="text-[#001529] font-poppins text-[20px] font-medium mt-[18px] ml-[10px]">
           Chat
         </p>
@@ -124,7 +135,15 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
           />
         </div>
       </div>
-      {messageData.map((message, index) => (
+    {answerLoading ?   <div className="mb-[50px]">
+          <div
+            className="h-auto bg-[#F3F3FF] rounded-[5px] ml-[10px]"
+          >
+            <Skeleton height={150}/>
+          </div>
+        </div> : 
+      
+      messageData.map((message, index) => (
         <div className="mb-[50px]">
           <div
             key={index}
@@ -139,16 +158,18 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
             <div className="bg-[#1677FF] rounded-[5px] w-[300px] p-[15px]">
               <div className="text-white text-sm font-poppins">
                 {message.response}
-                <div className="text-right">
+                <br />
+                <div className="text-right font-poppins">
                   {formatTimestamp(message.timestamp)}
                 </div>
               </div>
             </div>
           </div>
         </div>
-      ))}
+      ))
+    }
 
-      <div className="fixed bottom-0 left-[58%] pl-[25px] pb-[10px] right-0 bg-white w-[43%]">
+      <div className="sticky bottom-0 pl-[25px] pb-[10px] pt-[10px] right-0 bg-white w-full">
         <div className="flex justify-end mt-[5px]">
           <input
             type="text"

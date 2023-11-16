@@ -16,7 +16,9 @@ const ChatPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://61.246.6.48:8000/api/aigenerate/api/pdf_files/");
+        const response = await axios.get(
+          "http://61.246.6.48:8000/api/aigenerate/api/pdf_files/"
+        );
         setPdfData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -25,10 +27,9 @@ const ChatPage = () => {
 
     fetchData();
 
-    // Fetch selected file name from URL parameters
-    const selectedFileNameFromParams = params.fileName; // Adjust the parameter name based on your route
+    const selectedFileNameFromParams = params.fileName;
     setSelectedFileName(selectedFileNameFromParams);
-  }, [params.fileName]); // Add params.fileName to dependencies array
+  }, [params.fileName]);
 
   const data = {
     setSelectedPdf,
@@ -42,13 +43,13 @@ const ChatPage = () => {
   return (
     <div className="flex md:flex-row flex-col w-full">
       <div className="w-full md:w-[15%]">
-        <SideBar  {...data} />
+        <SideBar {...data} />
       </div>
       <div className="w-full md:w-[43%] h-[100vh] overflow-y-scroll">
-        <Preview  {...data} />
+        <Preview {...data} />
       </div>
       <div className="w-full md:w-[42%]">
-        <ChatBot {...data}/>
+        <ChatBot {...data} />
       </div>
     </div>
   );
