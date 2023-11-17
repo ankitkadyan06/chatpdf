@@ -176,7 +176,7 @@ const DropBox = () => {
           <section>
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              <div className="DropBack w-[82%] h-[203px] bg-white rounded-[22px] ml-[130px] mt-[50px] px-[11px] py-[10px] cursor-pointer">
+              <div className="DropBack w-[82%] h-[203px] bg-white rounded-[22px] ml-[70px] md:ml-[100px] xl:ml-[130px] mt-[50px] px-[11px] py-[10px] cursor-pointer">
                 <div className="w-full h-[181px] bg-[#E8F4FF] border-[2px] border-dashed border-[#0F8CFF] rounded-[22px]">
                   <div className="ml-[48%] mt-[17px] cursor-pointer">
                     <img src={drop} alt="" />
@@ -203,7 +203,7 @@ const DropBox = () => {
         </p>
       </div>
       {selectedFiles.length > 0 && (
-        <div className="w-[82%] h-auto mb-[20px] bg-white rounded-[22px] ml-[130px] mt-[50px] px-[11px] py-[10px]">
+        <div className="w-[82%] h-auto mb-[20px] bg-white rounded-[22px] ml-[70px] md:ml-[100px] xl:ml-[130px] mt-[50px] px-[11px] py-[10px]">
           <div className="flex justify-between">
             <div className="text-[#282828] text-[23px] font-poppins font-medium">
               My Chat
@@ -254,7 +254,7 @@ const DropBox = () => {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-5">{renderSelectedFiles()}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">{renderSelectedFiles()}</div>
         </div>
       )}
     </div>

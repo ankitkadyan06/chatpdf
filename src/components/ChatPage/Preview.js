@@ -10,9 +10,22 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 const Preview = ({ pdfData, selectedPdf, selectedFileName }) => {
   const [numPages, setNumPages] = useState(null);
+  const [scale, setScale] = useState(1.0);
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
+  };
+
+  const handleZoomIn = () => {
+    if (scale < 2.0) {
+      setScale(scale + 0.1);
+    }
+  };
+
+  const handleZoomOut = () => {
+    if (scale > 0.1) {
+      setScale(scale - 0.1);
+    }
   };
 
   let filteredFile =
@@ -28,7 +41,12 @@ const Preview = ({ pdfData, selectedPdf, selectedFileName }) => {
           </p>
         </div>
         <div className="flex mr-[10px] ml-[29%]">
-          <img src={zoomIn} alt="" className="w-[16.442px] cursor-pointer" />
+          <img
+            src={zoomIn}
+            alt=""
+            className="w-[16.442px] cursor-pointer"
+            onClick={handleZoomIn}
+          />
           <img
             src={pdfReset}
             alt=""
@@ -38,6 +56,7 @@ const Preview = ({ pdfData, selectedPdf, selectedFileName }) => {
             src={zoomOut}
             alt=""
             className="w-[10.213px] ml-[10px] cursor-pointer"
+            onClick={handleZoomOut}
           />
         </div>
       </div>
@@ -48,7 +67,7 @@ const Preview = ({ pdfData, selectedPdf, selectedFileName }) => {
             onLoadSuccess={onDocumentLoadSuccess}
           >
             {Array.from({ length: numPages }, (_, page) => (
-              <Page size="A4" key={`page_${page + 1}`} pageNumber={page + 1} />
+              <Page size="A4" key={`page_${page + 1}`} pageNumber={page + 1}  scale={scale}  />
             ))}
           </Document>
         )}

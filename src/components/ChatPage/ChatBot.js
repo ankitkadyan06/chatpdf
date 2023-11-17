@@ -169,7 +169,7 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
       ))
     }
 
-      <div className="sticky bottom-0 pl-[25px] pb-[10px] pt-[10px] right-0 bg-white w-full">
+      <div className="sticky md:fixed bottom-0 pl-[25px] pb-[10px] pt-[10px] right-0 bg-white w-full md:w-[42%]">
         <div className="flex justify-end mt-[5px]">
           <input
             type="text"
