@@ -144,7 +144,7 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
         </div> : 
       
       messageData.map((message, index) => (
-        <div className="mb-[50px]">
+        <div className="mb-[70px]">
           <div
             key={index}
             style={{ maxWidth: `${message.question.length * 11}px` }}
