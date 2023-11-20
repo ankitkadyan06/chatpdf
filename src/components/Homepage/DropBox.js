@@ -174,10 +174,10 @@ const DropBox = () => {
     <div>
       <Dropzone onDrop={handleFileUpload}>
         {({ getRootProps, getInputProps }) => (
-          <section>
+          <section className="w-[82%] ml-[70px] md:ml-[100px] xl:ml-[130px]">
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              <div className="DropBack w-[82%] h-[203px] bg-white rounded-[22px] ml-[70px] md:ml-[100px] xl:ml-[130px] mt-[50px] px-[11px] py-[10px] cursor-pointer">
+              <div className="DropBack w-full h-[203px] bg-white rounded-[22px] mt-[50px] px-[11px] py-[10px] cursor-pointer">
                 <div className="w-full h-[181px] bg-[#E8F4FF] border-[2px] border-dashed border-[#0F8CFF] rounded-[22px]">
                   <div className="ml-[48%] mt-[17px] cursor-pointer">
                     <img src={drop} alt="" />

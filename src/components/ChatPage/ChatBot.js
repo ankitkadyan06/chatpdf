@@ -157,7 +157,7 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
               <div className="text-[#333333] text-sm font-poppins text-justify">
                 {message.response}
                 <br />
-                <br/>
+                <br />
                 <div className="text-right font-poppins">
                   {formatTimestamp(message.timestamp)}
                 </div>
