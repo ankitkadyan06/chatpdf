@@ -94,6 +94,7 @@ const DropBox = () => {
 
   const renderSelectedFiles = () => {
     return selectedFiles.map((file, index) => {
+      const lastChat = file.chat_messages ? file.chat_messages[file.chat_messages.length - 1] : null;
       return (
         <div
           key={index}
@@ -121,19 +122,19 @@ const DropBox = () => {
                     onClick={() => deleteFile(file)}
                   >
                     <img src={deletePdf} alt="" className="w-[16px]" />
-                    <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
+                    <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[5px]">
                       Delete
                     </p>
                   </div>
                   <div className="flex cursor-pointer">
                     <img src={rename} alt="" className="w-[16px]" />
-                    <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
+                    <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[5px]">
                       Rename
                     </p>
                   </div>
                   <div className="flex cursor-pointer">
                     <img src={moveTo} alt="" className="w-[16px]" />
-                    <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[15px]">
+                    <p className="text-[#313131] text-sm font-poppins ml-[10px] mt-[5px]">
                       Move To
                     </p>
                   </div>
@@ -161,7 +162,7 @@ const DropBox = () => {
               {file.name}
             </p>
             <p className="text-[#3B3B3B] text-[12px] font-poppins">
-              Updated Chat with PDF
+              {lastChat ? lastChat.response : "Start a conversation"}
             </p>
           </div>
         </div>
@@ -254,7 +255,9 @@ const DropBox = () => {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">{renderSelectedFiles()}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            {renderSelectedFiles()}
+          </div>
         </div>
       )}
     </div>

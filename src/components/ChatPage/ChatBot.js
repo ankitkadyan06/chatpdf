@@ -7,8 +7,8 @@ import edit from "../assets/images/editIcon.svg";
 import reset from "../assets/images/resetIcon.svg";
 import deleteChat from "../assets/images/chatDeleteIcon.svg";
 import axios from "axios";
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const ChatBot = ({ selectedPdf, pdfData }) => {
   const [inputMessage, setInputMessage] = useState("");
@@ -30,7 +30,7 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
       question: inputMessage,
     };
     try {
-      setAnswerLoading(true)
+      setAnswerLoading(true);
       const response = await axios.post(
         "http://61.246.6.48:8000/api/aigenerate/api/chat_messages/create/",
         data
@@ -43,23 +43,23 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
           .then((response) => {
             setMessageData(response.data.chat_messages);
             setInputMessage("");
-            setAnswerLoading(false)
+            setAnswerLoading(false);
           })
           .catch((error) => {
             console.log(error);
-            setAnswerLoading(false)
+            setAnswerLoading(false);
           });
       }
       console.log(response.data);
     } catch (error) {
       console.error("Error:", error);
-      setAnswerLoading(false)
+      setAnswerLoading(false);
     }
   };
 
   useEffect(() => {
     if (selectedPdf) {
-      setAnswerLoading(true)
+      setAnswerLoading(true);
       axios
         .get(
           `http://61.246.6.48:8000/api/aigenerate/api/pdf_files/${selectedPdf}`
@@ -70,7 +70,7 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
         })
         .catch((error) => {
           console.log(error);
-          setAnswerLoading(false)
+          setAnswerLoading(false);
         });
     }
   }, [selectedPdf]);
@@ -102,11 +102,7 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
   };
 
   return (
-    <div
-      id="chatContainer"
-      className="h-[100vh] bg-white overflow-y-scroll"
-    >
-    
+    <div id="chatContainer" className="h-[100vh] bg-white overflow-y-scroll">
       <div className="sticky top-0 bottom-0 z-50 flex justify-between w-full h-[66px] bg-white">
         <p className="text-[#001529] font-poppins text-[20px] font-medium mt-[18px] ml-[10px]">
           Chat
@@ -135,39 +131,41 @@ const ChatBot = ({ selectedPdf, pdfData }) => {
           />
         </div>
       </div>
-    {answerLoading ?   <div className="mb-[50px]">
-          <div
-            className="h-auto bg-[#F3F3FF] rounded-[5px] ml-[10px]"
-          >
-            <Skeleton height={150}/>
+      {answerLoading ? (
+        <div className="mb-[50px]">
+          <div className="h-auto bg-[#F3F3FF] rounded-[5px] ml-[10px]">
+            <Skeleton height={150} />
           </div>
-        </div> : 
-      
-      messageData.map((message, index) => (
-        <div className="mb-[70px]">
-          <div
-            key={index}
-            style={{ maxWidth: `${message.question.length * 11}px` }}
-            className="h-auto bg-[#F3F3FF] border-[1px] border-solid border-[#EDEDFF] rounded-[5px] ml-[10px] p-[5px]"
-          >
-            <div className="text-[#333333] text-sm font-poppins">
-              {message.question}
+        </div>
+      ) : (
+        messageData.map((message, index) => (
+          <div className="mb-[70px]">
+            <div className="flex justify-end mr-[10px] mt-[10px] mb-[10px]">
+              <div
+                style={{ maxWidth: `${message.question.length * 20}px` }}
+                className="h-auto bg-[#1677FF] border-[1px] border-solid rounded-[5px] px-[10px] py-[7px]"
+              >
+                <div className="text-white text-sm font-poppins">
+                  {message.question}
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="flex justify-end mr-[10px] mt-[10px] mb-[10px]">
-            <div className="bg-[#1677FF] rounded-[5px] w-[300px] p-[15px]">
-              <div className="text-white text-sm font-poppins">
+            <div
+              key={index}
+              className="bg-[#F3F3FF] border-[#EDEDFF] rounded-[5px] w-[400px] p-[15px] ml-[10px]"
+            >
+              <div className="text-[#333333] text-sm font-poppins text-justify">
                 {message.response}
                 <br />
+                <br/>
                 <div className="text-right font-poppins">
                   {formatTimestamp(message.timestamp)}
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      ))
-    }
+        ))
+      )}
 
       <div className="sticky md:fixed bottom-0 pl-[25px] pb-[10px] pt-[10px] right-0 bg-white w-full md:w-[42%]">
         <div className="flex justify-end mt-[5px]">
