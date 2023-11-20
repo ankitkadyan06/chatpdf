@@ -26,18 +26,6 @@ const SideBar = ({ setViewSelectedPdf, selectedPdf, setSelectedPdf, pdfData, def
     setSelectedFileName(fileName);
   };
 
-  // useEffect(() => {
-  //   if (dropFile && !dataShow.includes(dropFile)) {
-  //     setDataShow((prevDataShow) => [...prevDataShow, dropFile]);
-  //   }
-  // }, [dropFile, dataShow]);
-
-  // useEffect(() => {
-  //   if (pdfData) {
-  //     setDataShow(pdfData.map((item) => ({ selectedFiles: [item], name: item.name })));
-  //   }
-  // }, [pdfData]);
-
   console.log("dataShow", dataShow);
 
   return (
